@@ -31,12 +31,7 @@
     </header>
   </t-layout>
   <t-layout>
-    <t-aside
-      width="600px"
-      theme-mode
-      class="t-layout__sider"
-      id="t-layout__sider"
-    >
+    <t-aside width="600px" theme-mode id="t-layout__sider">
       <h1 style="font-size: 45px; margin-left: 68px; margin-top: 30%">
         登录到
       </h1>
@@ -44,16 +39,13 @@
         Apple Store
       </h1>
       <t-form
-        @reset="OnReset"
         :rules="rules"
         ref="form"
         :data="formData"
-        :colon="true"
         :label-width="0"
-        scrollToFirstError="smooth"
         :style="{ width: '65%', marginLeft: '68px', marginTop: '75px' }"
       >
-        <t-form-item name="account" :rules="rules.account">
+        <t-form-item name="account">
           <t-input
             size="large"
             v-model="formData.account"
@@ -66,7 +58,7 @@
           </t-input>
         </t-form-item>
 
-        <t-form-item name="password" :rules="rules.password">
+        <t-form-item name="password">
           <t-input
             v-model="formData.password"
             type="password"
@@ -93,7 +85,6 @@
             style="margin-top: 30px"
             @click="submitForm"
             block
-            @keydown.enter="submitForm"
             >登录
           </t-button>
         </t-form-item>
@@ -182,29 +173,29 @@ const login = () => {
   }
   return false;
 };
-
 const submitForm = async () => {
   // form 表单校验规则
   console.log("============");
   console.log(form.value.submit().value);
   if ((await form.value.submit().value) === "true") {
-    MessagePlugin.success("Login Success");
-    UseAuthenticated().isAuthenticated = true;
-    router.push("/");
+    if ((await login().valueOf()) === true) {
+      UseAuthenticated().isAuthenticated = true;
+      MessagePlugin.success("Login Success").then(() => {
+        router.push("/");
+      });
+    }
   } else {
     console.log("error=========");
     OnReset();
     UseAuthenticated().isAuthenticated = false;
-    MessagePlugin.error("validate Error").then((r) => {
+    MessagePlugin.error("validate Error").then(() => {
       router.push("/login");
     });
   }
 };
-
 const OnReset = () => {
   form.value.reset({ type: "initial" });
 };
-
 const toggleSettingPanel = () => {
   console.log("enter");
   if (value.value === 0) {

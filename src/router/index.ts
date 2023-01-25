@@ -18,11 +18,6 @@ const router = createRouter({
       name: "LoginTemp",
       component: () => import("../views/LoginTemp/LoginTemp.vue"),
     },
-    {
-      path: "/ll",
-      name: "test",
-      component: () => import("../views/ConfirmTemp.vue"),
-    },
   ],
 });
 
