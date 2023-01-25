@@ -25,90 +25,99 @@
           variant="text"
           @click="toggleSettingPanel"
         >
-          <t-icon name="setting" class="icon" />
+          <t-icon name="setting" class="icon" :url="newUrl" />
         </t-button>
       </div>
     </header>
-    <t-layout>
-      <t-aside width="600px" theme-mode>
-        <h1 style="font-size: 45px; margin-left: 68px; margin-top: 30%">
-          登录到
-        </h1>
-        <h1 style="font-size: 45px; margin-left: 68px; margin-top: 0">
-          Apple Store
-        </h1>
-        <t-form
-          @reset="OnReset"
-          :rules="rules"
-          @submit="Onsubmit"
-          ref="form"
-          :data="formData"
-          :colon="true"
-          :label-width="0"
-          scrollToFirstError="smooth"
-          :style="{ width: '65%', marginLeft: '68px', marginTop: '75px' }"
-        >
-          <t-form-item name="account" :rules="rules.account">
-            <t-input
-              size="large"
-              v-model="formData.account"
-              clearable
-              placeholder="请输入账户名"
-            >
-              <template #prefix-icon>
-                <desktop-icon />
-              </template>
-            </t-input>
-          </t-form-item>
+  </t-layout>
+  <t-layout>
+    <t-aside
+      width="600px"
+      theme-mode
+      class="t-layout__sider"
+      id="t-layout__sider"
+    >
+      <h1 style="font-size: 45px; margin-left: 68px; margin-top: 30%">
+        登录到
+      </h1>
+      <h1 style="font-size: 45px; margin-left: 68px; margin-top: 0">
+        Apple Store
+      </h1>
+      <t-form
+        @reset="OnReset"
+        :rules="rules"
+        @submit="Onsubmit"
+        ref="form"
+        :data="formData"
+        :colon="true"
+        :label-width="0"
+        scrollToFirstError="smooth"
+        :style="{ width: '65%', marginLeft: '68px', marginTop: '75px' }"
+      >
+        <t-form-item name="account" :rules="rules.account">
+          <t-input
+            size="large"
+            v-model="formData.account"
+            clearable
+            placeholder="请输入账户名"
+          >
+            <template #prefix-icon>
+              <desktop-icon />
+            </template>
+          </t-input>
+        </t-form-item>
 
-          <t-form-item name="password" :rules="rules.password">
-            <t-input
-              size="large"
-              v-model="formData.password"
-              type="password"
-              clearable
-              placeholder="请输入密码"
-            >
-              <template #prefix-icon>
-                <lock-on-icon />
-              </template>
-              <template #suffix-icon>
-                <t-icon
-                  :name="showPsw ? 'browse' : 'browse-off'"
-                  @click="showPsw = !showPsw"
-                />
-              </template>
-            </t-input>
-          </t-form-item>
-          <t-form-item>
-            <t-button
-              size="large"
-              theme="primary"
-              type="submit"
-              style="margin-top: 30px"
-              @click="submitForm"
-              >登录
-            </t-button>
-          </t-form-item>
-        </t-form>
-      </t-aside>
-      <t-content class="login-content">
-        <h1
-          style="
-            margin-left: 40%;
-            font-size: 60px;
-            margin-top: 20%;
-            font-family: 'Times New Roman';
-          "
-        >
-          Say Hi
-        </h1>
-        <h1 style="margin-left: 32%; font-size: 60px">Hello World</h1>
-      </t-content>
-    </t-layout>
-    <footer class="copyright">
+        <t-form-item name="password" :rules="rules.password">
+          <t-input
+            v-model="formData.password"
+            type="password"
+            clearable
+            size="large"
+            placeholder="请输入密码"
+          >
+            <template #prefix-icon>
+              <lock-on-icon />
+            </template>
+            <template #suffix-icon>
+              <t-icon
+                :name="showPsw ? 'browse' : 'browse-off'"
+                @click="showPsw = !showPsw"
+              />
+            </template>
+          </t-input>
+        </t-form-item>
+        <t-form-item>
+          <t-button
+            size="large"
+            theme="primary"
+            type="submit"
+            style="margin-top: 30px"
+            @click="submitForm"
+            block
+            @keydown.enter="submitForm"
+            >登录
+          </t-button>
+        </t-form-item>
+      </t-form>
+    </t-aside>
+    <t-content class="login-content">
+      <h1
+        style="
+          margin-left: 40%;
+          font-size: 60px;
+          margin-top: 20%;
+          font-family: 'Times New Roman';
+        "
+      >
+        Say Hi
+      </h1>
+      <h1 style="margin-left: 32%; font-size: 60px">Hello World</h1>
+    </t-content>
+  </t-layout>
+  <t-layout>
+    <t-footer class="copyright" height="30px">
       Copyright @ 2021-2022 Tencent. All Rights Reserved
-    </footer>
+    </t-footer>
   </t-layout>
 </template>
 
@@ -205,10 +214,14 @@ const toggleSettingPanel = () => {
   console.log("enter");
   if (value.value === 0) {
     value.value = 1;
+    document.getElementById("t-layout__sider").style.backgroundColor =
+      "#181818";
     return document.documentElement.setAttribute("theme-mode", "dark");
   }
   if (value.value === 1) {
     value.value = 0;
+    document.getElementById("t-layout__sider").style.backgroundColor =
+      "#eeeeee";
     return document.documentElement.removeAttribute("theme-mode");
   }
 };
@@ -216,7 +229,12 @@ const toggleSettingPanel = () => {
 
 <style lang="less" scoped>
 .login-content {
-  background-color: #ffffff;
+}
+
+.t-layout__sider {
+  position: relative;
+  transition: all 0.2s;
+  background-color: #eeeeee;
 }
 
 .login-header {
@@ -224,8 +242,6 @@ const toggleSettingPanel = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  backdrop-filter: blur(5px);
-  background-color: #ffffff;
 
   .login-aside {
     width: 400px;
@@ -239,10 +255,6 @@ const toggleSettingPanel = () => {
   .operations-container {
     display: flex;
     align-items: center;
-
-    .t-button {
-      margin-left: 16px;
-    }
 
     .icon {
       height: 20px;
@@ -259,15 +271,7 @@ const toggleSettingPanel = () => {
 
 .copyright {
   font-size: 14px;
-  position: absolute;
-  left: 5%;
-  bottom: 64px;
-  color: var(--td-text-color-secondary);
-}
-
-@media screen and (max-height: 700px) {
-  .copyright {
-    display: none;
-  }
+  margin-left: 48px;
+  margin-top: 20px;
 }
 </style>
