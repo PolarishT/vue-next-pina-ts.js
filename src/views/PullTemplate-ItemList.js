@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Img = exports.MenuList = exports.MenuIcon = exports.USerIcon = exports.ItemList = void 0;
-var vue_1 = require("vue");
-exports.ItemList = [
+import { ref } from "vue";
+export const ItemList = [
     {
         id: 1,
         icon: "icon-jurassic_user",
@@ -36,12 +33,12 @@ exports.ItemList = [
         url: "/state",
     },
 ];
-exports.USerIcon = [
+export const USerIcon = [
     {
         icon: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202106%2F07%2F20210607140720_6dd18.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1676994714&t=f2b9c3b7aa348862c963cb531c4a697a",
     },
 ];
-exports.MenuIcon = (0, vue_1.ref)([
+export const MenuIcon = ref([
     {
         name: "add",
         id: "1",
@@ -61,7 +58,7 @@ exports.MenuIcon = (0, vue_1.ref)([
         url: "https://github.com",
     },
 ]);
-exports.MenuList = (0, vue_1.ref)([
+export const MenuList = ref([
     {
         id: 1,
         icon: "icon-jurassic_user",
@@ -111,5 +108,4 @@ exports.MenuList = (0, vue_1.ref)([
         },
     },
 ]);
-exports.Img = (0, vue_1.ref)("https://img2.baidu.com/it/u=800963741,3900389833&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=889");
-//# sourceMappingURL=PullTemplate-ItemList.js.map
+export const Img = ref("https://img2.baidu.com/it/u=800963741,3900389833&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=889");

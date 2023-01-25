@@ -1,24 +1,20 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UseAuthenticated = exports.useCounterStore = void 0;
-var vue_1 = require("vue");
-var pinia_1 = require("pinia");
-exports.useCounterStore = (0, pinia_1.defineStore)("counter", function () {
-    var count = (0, vue_1.ref)(0);
-    var doubleCount = (0, vue_1.computed)(function () { return count.value * 2; });
+import { computed, ref } from "vue";
+import { defineStore } from "pinia";
+export const useCounterStore = defineStore("counter", () => {
+    const count = ref(0);
+    const doubleCount = computed(() => count.value * 2);
     function increment() {
         count.value++;
     }
-    return { count: count, doubleCount: doubleCount, increment: increment };
+    return { count, doubleCount, increment };
 });
-var UserPermission = {
+const UserPermission = {
     roles: [],
 };
-exports.UseAuthenticated = (0, pinia_1.defineStore)("UserAuthentication", function () {
-    var isAuthenticated = (0, vue_1.ref)();
+export const UseAuthenticated = defineStore("UserAuthentication", () => {
+    const isAuthenticated = ref();
     function doCheck() {
         isAuthenticated.value = false;
     }
-    return { isAuthenticated: isAuthenticated };
+    return { isAuthenticated };
 });
-//# sourceMappingURL=counter.js.map

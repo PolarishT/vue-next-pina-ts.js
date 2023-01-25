@@ -66,14 +66,60 @@
       </t-head-menu>
     </t-header>
     <t-content id="footerDocument1">
-      <t-image
-        :src="Img"
-        fit="cover"
-        :style="{ width: '400px', height: '400px', margin: '0 auto' }"
-      />
+      <t-space :style="{ marginTop: '50px', marginLeft: '30px' }">
+        <template v-for="card in CardList" :key="card.id">
+          <t-card
+            :cover="cover"
+            theme="poster2"
+            size="medium"
+            :style="{ width: '320px', height: '170px' }"
+          >
+            <template #footer>
+              <t-comment
+                :avatar="card.avatar"
+                :author="card.author"
+                :content="card.content"
+              />
+            </template>
+          </t-card>
+        </template>
+      </t-space>
+
+      <t-space size="large" :style="{ marginTop: '30px', marginLeft: '30px' }">
+        <t-calendar
+          :style="{ width: '400px' }"
+          ref="myCalendar"
+          :theme="theme"
+          :is-show-weekend-default="true"
+          fill-with-zero
+        />
+
+        <t-swiper
+          navigationType="dots-bar"
+          direction="vertical"
+          class="tdesign-demo-block--swiper"
+          :duration="300"
+          :interval="2000"
+        >
+          <t-swiper-item v-for="item in 6" :key="item">
+            <div class="demo-item">{{ item }}</div>
+          </t-swiper-item>
+        </t-swiper>
+      </t-space>
+
+      <t-steps :current="2" readonly style="margin-top: 20px">
+        <t-step-item title="已完成的步骤" content="这里是提示文字" />
+        <t-step-item title="已完成的步骤" content="这里是提示文字" />
+        <t-step-item
+          title="错误的步骤"
+          status="error"
+          content="优先展示`t-step`中设置的 status"
+        />
+        <t-step-item title="未进行的步骤" content="这里是提示文字" />
+      </t-steps>
     </t-content>
     <t-footer
-      style="text-align: center"
+      style="text-align: center; height: 30px; padding: 0"
       v-model:style="footerTheme"
       id="footerDocument"
     >
@@ -117,9 +163,49 @@ const TurnTodormant = () => {
   router.push("/login");
   UseAuthenticated().isAuthenticated = false;
 };
+const CardList = ref([
+  {
+    id: 1,
+    author: "john",
+    content: "Bel",
+    avatar: "j",
+  },
+  {
+    id: 2,
+    author: "john",
+    content: "Bel",
+    avatar: "j",
+  },
+  {
+    id: 3,
+    author: "john",
+    content: "Bel",
+    avatar: "j",
+  },
+  {
+    id: 4,
+    author: "john",
+    content: "Bel",
+    avatar: "j",
+  },
+]);
+
+const options = [
+  { value: "full", label: "全屏风格" },
+  { value: "card", label: "卡片风格" },
+];
+
+const theme = ref("card");
+const myCalendar = ref("");
+const fillWithZero = ref(true);
+const toCurrent = () => {
+  if (myCalendar.value) {
+    myCalendar.value.toCurrent();
+  }
+};
 </script>
 <style scoped lang="less">
-body {
+#body {
   margin: 0;
   padding: 0;
 }
@@ -140,5 +226,11 @@ body {
       --ripple-color: #383838;
     }
   }
+}
+
+.tdesign-demo-block--swiper {
+  width: 900px;
+  height: 250px;
+  background-color: #181818;
 }
 </style>

@@ -1,37 +1,34 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var vue_router_1 = require("vue-router");
-var counter_1 = require("@/stores/counter");
-var router = (0, vue_router_1.createRouter)({
-    history: (0, vue_router_1.createWebHistory)(import.meta.env.BASE_URL),
+import { createRouter, createWebHistory } from "vue-router";
+import { UseAuthenticated } from "@/stores/counter";
+const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: "/",
             name: "Temp",
-            component: function () { return Promise.resolve().then(function () { return require("../views/TempIndexPage.vue"); }); },
+            component: () => import("../views/TempIndexPage.vue"),
         },
         {
             path: "/login2",
             name: "dormat",
-            component: function () { return Promise.resolve().then(function () { return require("../views/dormatTemp.vue"); }); },
+            component: () => import("../views/dormatTemp.vue"),
         },
         {
             path: "/login",
             name: "LoginTemp",
-            component: function () { return Promise.resolve().then(function () { return require("../views/LoginTemp.vue"); }); },
+            component: () => import("../views/LoginTemp.vue"),
         },
         {
             path: "/ll",
             name: "test",
-            component: function () { return Promise.resolve().then(function () { return require("../views/ConfirmTemp.vue"); }); },
+            component: () => import("../views/ConfirmTemp.vue"),
         },
     ],
 });
-router.beforeEach(function (to, from, next) {
-    if (to.name !== "dormat" && (0, counter_1.UseAuthenticated)().isAuthenticated === false)
+router.beforeEach((to, from, next) => {
+    if (to.name !== "dormat" && UseAuthenticated().isAuthenticated === false)
         next({ name: "LoginTemp" });
     else
         next();
 });
-exports.default = router;
-//# sourceMappingURL=index.js.map
+export default router;
