@@ -109,3 +109,29 @@ export const MenuList = ref([
     },
 ]);
 export const Img = ref("https://img2.baidu.com/it/u=800963741,3900389833&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=889");
+export const CardList = ref([
+    {
+        id: 1,
+        author: "john",
+        content: "Bel",
+        avatar: "j",
+    },
+    {
+        id: 2,
+        author: "john",
+        content: "Bel",
+        avatar: "j",
+    },
+    {
+        id: 3,
+        author: "john",
+        content: "Bel",
+        avatar: "j",
+    },
+    {
+        id: 4,
+        author: "john",
+        content: "Bel",
+        avatar: "j",
+    },
+]);

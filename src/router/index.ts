@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { UseAuthenticated } from "@/stores/counter";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,17 +6,17 @@ const router = createRouter({
     {
       path: "/",
       name: "Temp",
-      component: () => import("../views/TempIndexPage.vue"),
+      component: () => import("../views/PullTemp/TempIndexPage.vue"),
     },
     {
-      path: "/login2",
-      name: "dormat",
-      component: () => import("../views/dormatTemp.vue"),
+      path: "/dormat",
+      name: "dormatTemp",
+      component: () => import("../views/DormatTemp/dormatTemp.vue"),
     },
     {
       path: "/login",
       name: "LoginTemp",
-      component: () => import("../views/LoginTemp.vue"),
+      component: () => import("../views/LoginTemp/LoginTemp.vue"),
     },
     {
       path: "/ll",
@@ -27,10 +26,16 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.name !== "dormat" && UseAuthenticated().isAuthenticated === false)
-    next({ name: "LoginTemp" });
-  else next();
-});
+// router.beforeEach((to, from, next) => {
+//   if (to.path === "/login") {
+//     next({ name: "LoginTemp" });
+//   }
+//   if (to.name !== "LoginTemp" && UseAuthenticated().isAuthenticated === false) {
+//     next({ name: "LoginTemp" });
+//   }
+//   if (from.name === "Temp" && UseAuthenticated().isAuthenticated === true) {
+//     next();
+//   }
+// });
 
 export default router;

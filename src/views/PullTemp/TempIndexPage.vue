@@ -54,6 +54,7 @@
             <t-popup theme="warning" content="点击休眠">
               <t-avatar
                 @dblclick="TurnTodormant"
+                @Click="TurnToLogin"
                 :image="USerIcon[0].icon"
                 size="large"
                 shape="round"
@@ -72,7 +73,7 @@
             :cover="cover"
             theme="poster2"
             size="medium"
-            :style="{ width: '320px', height: '170px' }"
+            :style="{ width: '350px', height: '170px' }"
           >
             <template #footer>
               <t-comment
@@ -120,7 +121,6 @@
     </t-content>
     <t-footer
       style="text-align: center; height: 30px; padding: 0"
-      v-model:style="footerTheme"
       id="footerDocument"
     >
       Copyright @ 2019-{{ new Date().getFullYear() }} Tencent. All Rights
@@ -133,12 +133,13 @@
 import { computed, ref } from "vue";
 import { CheckIcon, Icon, TipsIcon } from "tdesign-icons-vue-next";
 import {
+  CardList,
   Img,
   MenuIcon,
   MenuList,
   USerIcon,
-} from "@/views/PullTemplate-ItemList";
-import router from "@/router";
+} from "@/views/PullTemp/PullTemplate-ItemList";
+import router from "@/router/index";
 import { UseAuthenticated } from "@/stores/counter";
 
 const customValue = [1, 0];
@@ -160,49 +161,15 @@ const renderContent = (h, data) => {
 };
 
 const TurnTodormant = () => {
-  router.push("/login");
-  UseAuthenticated().isAuthenticated = false;
+  router.push({ name: "dormatTemp" });
 };
-const CardList = ref([
-  {
-    id: 1,
-    author: "john",
-    content: "Bel",
-    avatar: "j",
-  },
-  {
-    id: 2,
-    author: "john",
-    content: "Bel",
-    avatar: "j",
-  },
-  {
-    id: 3,
-    author: "john",
-    content: "Bel",
-    avatar: "j",
-  },
-  {
-    id: 4,
-    author: "john",
-    content: "Bel",
-    avatar: "j",
-  },
-]);
-
-const options = [
-  { value: "full", label: "全屏风格" },
-  { value: "card", label: "卡片风格" },
-];
+const TurnToLogin = () => {
+  UseAuthenticated().isAuthenticated = false;
+  router.push({ name: "LoginTemp" });
+};
 
 const theme = ref("card");
 const myCalendar = ref("");
-const fillWithZero = ref(true);
-const toCurrent = () => {
-  if (myCalendar.value) {
-    myCalendar.value.toCurrent();
-  }
-};
 </script>
 <style scoped lang="less">
 #body {

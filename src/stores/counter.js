@@ -1,5 +1,5 @@
-import { computed, ref } from "vue";
 import { defineStore } from "pinia";
+import { computed, ref } from "vue";
 export const useCounterStore = defineStore("counter", () => {
     const count = ref(0);
     const doubleCount = computed(() => count.value * 2);
@@ -9,10 +9,10 @@ export const useCounterStore = defineStore("counter", () => {
     return { count, doubleCount, increment };
 });
 const UserPermission = {
-    roles: [],
+    roles: ["Super", "User"],
 };
 export const UseAuthenticated = defineStore("UserAuthentication", () => {
-    const isAuthenticated = ref();
+    const isAuthenticated = ref(false);
     function doCheck() {
         isAuthenticated.value = false;
     }

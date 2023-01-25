@@ -25,7 +25,7 @@
           variant="text"
           @click="toggleSettingPanel"
         >
-          <t-icon name="setting" class="icon" :url="newUrl" />
+          <t-icon name="setting" class="icon" />
         </t-button>
       </div>
     </header>
@@ -46,7 +46,6 @@
       <t-form
         @reset="OnReset"
         :rules="rules"
-        @submit="Onsubmit"
         ref="form"
         :data="formData"
         :colon="true"
@@ -127,10 +126,10 @@ import {
   LockOnIcon,
   LogoAppleFilledIcon,
 } from "tdesign-icons-vue-next";
-import { reactive, ref } from "vue";
 import { MessagePlugin } from "tdesign-vue-next";
-import router from "../router";
-import { UseAuthenticated } from "../stores/counter";
+import { reactive, ref } from "vue";
+import router from "../../router";
+import { UseAuthenticated } from "../../stores/counter";
 
 const headUrl = reactive({
   githubUrl: "https://github.com/AllianceTing",
@@ -175,34 +174,30 @@ const navToHelper = () => {
   window.open(headUrl.JuejinUrl);
 };
 const login = () => {
-  return (
+  if (
     formData.value.account === "username" &&
     formData.value.password === "password"
-  );
+  ) {
+    return true;
+  }
+  return false;
 };
-// const onsubmit = (result: ValidateResultContext<FormData>) => {
-//   if (result.validateResult == true) {
-//     try {
-//       console.log("yes", result.validateResult);
-//     } catch (e) {
-//       MessagePlugin.error("error");
-//     }
-//   }
-// };
-const submitForm = () => {
+
+const submitForm = async () => {
   // form 表单校验规则
   console.log("============");
-  console.log("==========enter");
-  if (login().valueOf() === true) {
+  console.log(form.value.submit().value);
+  if ((await form.value.submit().value) === "true") {
     MessagePlugin.success("Login Success");
     UseAuthenticated().isAuthenticated = true;
     router.push("/");
   } else {
     console.log("error=========");
     OnReset();
-    MessagePlugin.error(Error.toString()).then((r) => {});
-    console.log("=======login");
-    router.push("/login");
+    UseAuthenticated().isAuthenticated = false;
+    MessagePlugin.error("validate Error").then((r) => {
+      router.push("/login");
+    });
   }
 };
 
@@ -273,5 +268,11 @@ const toggleSettingPanel = () => {
   font-size: 14px;
   margin-left: 48px;
   margin-top: 20px;
+}
+
+.t-layout__sider {
+  position: relative;
+  transition: all;
+  width: 232px;
 }
 </style>
