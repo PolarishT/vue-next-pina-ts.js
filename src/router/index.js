@@ -32,6 +32,11 @@ const router = createRouter({
             name: "UserTemp",
             component: () => import("../views/UserCenter/userCenter.vue"),
         },
+        {
+            path: "/form",
+            name: "formTemp",
+            component: () => import("../views/formTemp/formTemp.vue"),
+        },
     ],
 });
 export default router;
