@@ -43,7 +43,7 @@
             </t-row>
           </t-card>
         </t-content>
-        <FooterTemp />
+        <footerCom />
       </t-layout>
     </t-layout>
   </t-layout>
