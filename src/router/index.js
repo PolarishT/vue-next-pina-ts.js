@@ -17,17 +17,16 @@ const router = createRouter({
             name: "LoginTemp",
             component: () => import("../views/LoginTemp/LoginTemp.vue"),
         },
+        {
+            path: "/table",
+            name: "TableTemp",
+            component: () => import("../views/TableTemp/TableTemp.vue"),
+        },
+        {
+            path: "/t",
+            name: "TaTp",
+            component: () => import("../views/dbTemp/footerTemp.vue"),
+        },
     ],
 });
-// router.beforeEach((to, from, next) => {
-//   if (to.path === "/login") {
-//     next({ name: "LoginTemp" });
-//   }
-//   if (to.name !== "LoginTemp" && UseAuthenticated().isAuthenticated === false) {
-//     next({ name: "LoginTemp" });
-//   }
-//   if (from.name === "Temp" && UseAuthenticated().isAuthenticated === true) {
-//     next();
-//   }
-// });
 export default router;

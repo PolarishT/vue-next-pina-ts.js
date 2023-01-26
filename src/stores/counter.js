@@ -8,9 +8,6 @@ export const useCounterStore = defineStore("counter", () => {
     }
     return { count, doubleCount, increment };
 });
-const UserPermission = {
-    roles: ["Super", "User"],
-};
 export const UseAuthenticated = defineStore("UserAuthentication", () => {
     const isAuthenticated = ref(false);
     function doCheck() {
@@ -18,3 +15,12 @@ export const UseAuthenticated = defineStore("UserAuthentication", () => {
     }
     return { isAuthenticated };
 });
+// export const RolePermission = defineStore("Rolepermission", {
+//   state: () => ({ permission: "" }),
+//   getters: {
+//     array: (state) => (state.permission = "role"),
+//   },
+//   actions: {
+//     valus() {},
+//   },
+// });
