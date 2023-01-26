@@ -28,6 +28,11 @@ const router = createRouter({
       name: "TaTp",
       component: () => import("../views/dbTemp/footerTemp.vue"),
     },
+    {
+      path: "/user",
+      name: "UserTemp",
+      component: () => import("../views/UserCenter/userCenter.vue"),
+    },
   ],
 });
 
