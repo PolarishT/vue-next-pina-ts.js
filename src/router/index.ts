@@ -38,6 +38,11 @@ const router = createRouter({
       name: "formTemp",
       component: () => import("../views/formTemp/formTemp.vue"),
     },
+    {
+      path: "/ft",
+      name: "wTmp",
+      component: () => import("../views/LoginTemp/indexTemp.vue"),
+    },
   ],
 });
 
