@@ -57,27 +57,8 @@
 </template>
 
 <script lang="jsx" setup>
-import { computed, ref } from "vue";
-import { CheckIcon, TipsIcon } from "tdesign-icons-vue-next";
+import { ref } from "vue";
 import { CardList } from "@/views/PullTemp/PullTemplate-ItemList";
-
-const customValue = [1, 0];
-const renderChecked2 = ref(0);
-
-let themeColor = computed(() => {
-  if (renderChecked2.value === 1) {
-    return document.documentElement.setAttribute("theme-mode", "dark");
-  } else return document.documentElement.removeAttribute("theme-mode");
-});
-
-let changeIconTheme = computed(() => {
-  if (renderChecked2.value === 1) {
-    return "default";
-  } else return "primary";
-});
-const renderContent = (h, data) => {
-  return data.value ? <CheckIcon /> : <TipsIcon />;
-};
 
 const theme = ref("card");
 const myCalendar = ref("");

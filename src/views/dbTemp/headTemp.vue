@@ -76,8 +76,8 @@ import {
   MenuList,
   USerIcon,
 } from "@/views/PullTemp/PullTemplate-ItemList";
-import router from "@/router/index";
 import { UseAuthenticated } from "@/stores/counter";
+import { NOTIFY_SUCCESS } from "@/views/notifyTemp/nitify";
 
 const customValue = [1, 0];
 const renderChecked2 = ref(0);
@@ -97,14 +97,24 @@ const renderContent = (h, data) => {
   return data.value ? <CheckIcon /> : <TipsIcon />;
 };
 const TurnTodormant = () => {
-  console.log("entern dormart");
   UseAuthenticated().isAuthenticated === true;
-  router.push("/dormat");
+  const Noti = {
+    name: "dormatTemp",
+    title: "Boading Success",
+    duration: 1000,
+    content: "",
+  };
+  NOTIFY_SUCCESS(Noti);
 };
 const TurnToLogin = () => {
-  console.log("enter Login");
   UseAuthenticated().isAuthenticated === false;
-  router.push("/login");
+  const Noti = {
+    name: "LoginTemp",
+    title: "Login",
+    duration: 2000,
+    content: "",
+  };
+  NOTIFY_SUCCESS(Noti);
 };
 </script>
 

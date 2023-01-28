@@ -25,7 +25,7 @@
           variant="text"
           @click="toggleSettingPanel"
         >
-          <t-icon class="icon" name="setting" />
+          <t-icon class="icon" name="usb" />
         </t-button>
       </div>
     </header>
@@ -117,7 +117,7 @@ import {
   LockOnIcon,
   LogoAppleFilledIcon,
 } from "tdesign-icons-vue-next";
-import { MessagePlugin } from "tdesign-vue-next";
+import { NotifyPlugin } from "tdesign-vue-next";
 import { reactive, ref } from "vue";
 import router from "../../router";
 
@@ -159,17 +159,30 @@ const rules = {
 };
 
 const SUCCESS = () => {
-  MessagePlugin.success("Login Success").then(router.push({ name: "Temp" }));
+  NotifyPlugin.success({
+    title: "Login Success",
+    content: "Welcome TO TDesign-VNEXT WEBSITE",
+    placement: "top-right",
+  }).then(() => {
+    router.push("/");
+  });
 };
 const FAIL = () => {
-  MessagePlugin.error("PD error").then(router.push({ name: "LoginTemp" }));
+  OnReset();
+  NotifyPlugin.error({
+    title: "Login error",
+    content: "Welcome TO TDesign-VNEXT WEBSITE",
+    placement: "top-right",
+  }).then(() => {
+    router.push({ name: "LoginTemp" });
+  });
 };
 const onSubmit = async ({ validateResult }) => {
   if (validateResult === true) {
     try {
       (await login()) === true ? SUCCESS() : FAIL();
     } catch (e) {
-      console.log(e);
+      document.write(e.message);
     }
   }
 };
@@ -189,10 +202,9 @@ const login = () => {
   return false;
 };
 const OnReset = () => {
-  form.value.reset({ type: "initial" });
+  form.value.reset({ type: "empty" });
 };
 const toggleSettingPanel = () => {
-  console.log("enter");
   if (value.value === 0) {
     value.value = 1;
     document.getElementById("t-layout__sider").style.backgroundColor =
