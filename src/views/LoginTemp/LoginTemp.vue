@@ -120,7 +120,6 @@ import {
 import { MessagePlugin } from "tdesign-vue-next";
 import { reactive, ref } from "vue";
 import router from "../../router";
-import { UseAuthenticated } from "../../stores/counter";
 
 const headUrl = reactive({
   githubUrl: "https://github.com/AllianceTing",
@@ -159,15 +158,18 @@ const rules = {
   ],
 };
 
+const SUCCESS = () => {
+  MessagePlugin.success("Login Success").then(router.push({ name: "Temp" }));
+};
+const FAIL = () => {
+  MessagePlugin.error("PD error").then(router.push({ name: "LoginTemp" }));
+};
 const onSubmit = async ({ validateResult }) => {
   if (validateResult === true) {
     try {
-      await login();
-      MessagePlugin.success("登陆成功");
-      router.push("/");
+      (await login()) === true ? SUCCESS() : FAIL();
     } catch (e) {
       console.log(e);
-      MessagePlugin.error(e.message);
     }
   }
 };
@@ -185,26 +187,6 @@ const login = () => {
     return true;
   }
   return false;
-};
-const submitForm = async () => {
-  // form 表单校验规则
-  console.log("============");
-  console.log(form.value.submit().value);
-  if ((await form.value.submit().value) === "true") {
-    if ((await login().valueOf()) === true) {
-      UseAuthenticated().isAuthenticated = true;
-      MessagePlugin.success("Login Success").then(() => {
-        router.push("/");
-      });
-    }
-  } else {
-    console.log("error=========");
-    OnReset();
-    UseAuthenticated().isAuthenticated = false;
-    MessagePlugin.error("validate Error").then(() => {
-      router.push("/login");
-    });
-  }
 };
 const OnReset = () => {
   form.value.reset({ type: "initial" });
