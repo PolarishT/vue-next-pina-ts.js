@@ -4,34 +4,34 @@
       <LogoAppleFilledIcon class="logo" />
       <div class="operations-container">
         <t-button
-          theme="default"
           shape="square"
+          theme="default"
           variant="text"
           @click="navToGitHub"
         >
-          <t-icon name="logo-github" class="icon" />
+          <t-icon class="icon" name="logo-github" />
         </t-button>
         <t-button
-          theme="default"
           shape="square"
+          theme="default"
           variant="text"
           @click="navToHelper"
         >
-          <t-icon name="tips" class="icon" />
+          <t-icon class="icon" name="tips" />
         </t-button>
         <t-button
-          theme="default"
           shape="square"
+          theme="default"
           variant="text"
           @click="toggleSettingPanel"
         >
-          <t-icon name="setting" class="icon" />
+          <t-icon class="icon" name="setting" />
         </t-button>
       </div>
     </header>
   </t-layout>
   <t-layout>
-    <t-aside width="600px" theme-mode id="t-layout__sider">
+    <t-aside id="t-layout__sider" theme-mode width="600px">
       <h1 style="font-size: 45px; margin-left: 68px; margin-top: 30%">
         登录到
       </h1>
@@ -39,18 +39,19 @@
         Apple Store
       </h1>
       <t-form
-        :rules="rules"
         ref="form"
         :data="formData"
         :label-width="0"
+        :rules="rules"
         :style="{ width: '65%', marginLeft: '68px', marginTop: '75px' }"
+        @submit="onSubmit"
       >
         <t-form-item name="account">
           <t-input
-            size="large"
             v-model="formData.account"
             clearable
             placeholder="请输入账户名"
+            size="large"
           >
             <template #prefix-icon>
               <desktop-icon />
@@ -61,10 +62,10 @@
         <t-form-item name="password">
           <t-input
             v-model="formData.password"
-            type="password"
             clearable
-            size="large"
             placeholder="请输入密码"
+            size="large"
+            type="password"
           >
             <template #prefix-icon>
               <lock-on-icon />
@@ -79,12 +80,11 @@
         </t-form-item>
         <t-form-item>
           <t-button
+            block
             size="large"
+            style="margin-top: 30px"
             theme="primary"
             type="submit"
-            style="margin-top: 30px"
-            @click="submitForm"
-            block
             >登录
           </t-button>
         </t-form-item>
@@ -111,7 +111,7 @@
   </t-layout>
 </template>
 
-<script setup lang="ts">
+<script lang="jsx" setup>
 import {
   DesktopIcon,
   LockOnIcon,
@@ -157,6 +157,19 @@ const rules = {
       trigger: "blur",
     },
   ],
+};
+
+const onSubmit = async ({ validateResult }) => {
+  if (validateResult === true) {
+    try {
+      await login();
+      MessagePlugin.success("登陆成功");
+      router.push("/");
+    } catch (e) {
+      console.log(e);
+      MessagePlugin.error(e.message);
+    }
+  }
 };
 const navToGitHub = () => {
   window.open(headUrl.githubUrl);

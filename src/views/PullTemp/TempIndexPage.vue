@@ -6,36 +6,34 @@
         <template v-for="card in CardList" :key="card.id">
           <t-card
             :cover="cover"
-            theme="poster2"
-            size="medium"
             :style="{ width: '350px', height: '170px' }"
+            size="medium"
+            theme="poster2"
           >
             <template #footer>
               <t-comment
-                :avatar="card.avatar"
                 :author="card.author"
+                :avatar="card.avatar"
                 :content="card.content"
               />
             </template>
           </t-card>
         </template>
       </t-space>
-
-      <t-space size="large" :style="{ marginTop: '30px', marginLeft: '30px' }">
+      <t-space :style="{ marginTop: '30px', marginLeft: '30px' }" size="large">
         <t-calendar
-          :style="{ width: '400px' }"
           ref="myCalendar"
-          :theme="theme"
           :is-show-weekend-default="true"
+          :style="{ width: '400px' }"
+          :theme="theme"
           fill-with-zero
         />
-
         <t-swiper
-          navigationType="dots-bar"
-          direction="vertical"
-          class="tdesign-demo-block--swiper"
           :duration="300"
           :interval="2000"
+          class="tdesign-demo-block--swiper"
+          direction="vertical"
+          navigationType="dots-bar"
         >
           <t-swiper-item v-for="item in 6" :key="item">
             <div class="demo-item">{{ item }}</div>
@@ -44,25 +42,24 @@
       </t-space>
 
       <t-steps :current="2" readonly style="margin-top: 20px">
-        <t-step-item title="已完成的步骤" content="这里是提示文字" />
-        <t-step-item title="已完成的步骤" content="这里是提示文字" />
+        <t-step-item content="这里是提示文字" title="已完成的步骤" />
+        <t-step-item content="这里是提示文字" title="已完成的步骤" />
         <t-step-item
-          title="错误的步骤"
-          status="error"
           content="优先展示`t-step`中设置的 status"
+          status="error"
+          title="错误的步骤"
         />
-        <t-step-item title="未进行的步骤" content="这里是提示文字" />
+        <t-step-item content="这里是提示文字" title="未进行的步骤" />
       </t-steps>
     </t-content>
     <footerCom :style="{ textAlign: 'center' }" />
   </t-layout>
 </template>
 
-<script setup lang="jsx">
+<script lang="jsx" setup>
 import { computed, ref } from "vue";
 import { CheckIcon, TipsIcon } from "tdesign-icons-vue-next";
 import { CardList } from "@/views/PullTemp/PullTemplate-ItemList";
-import router from "@/router/index";
 
 const customValue = [1, 0];
 const renderChecked2 = ref(0);
@@ -81,24 +78,21 @@ let changeIconTheme = computed(() => {
 const renderContent = (h, data) => {
   return data.value ? <CheckIcon /> : <TipsIcon />;
 };
-const time = ref(null);
-const TurnTodormant = () => {
-  clearTimeout(time);
-  console.log("entern dormart");
-  router.push("/dormat");
-};
-const TurnToLogin = () => {
-  console.log("enter Login");
-  clearTimeout(time);
-  time.value = setTimeout(() => {
-    router.push("/login");
-  }, 400);
-};
 
 const theme = ref("card");
 const myCalendar = ref("");
 </script>
-<style scoped lang="less">
+<style lang="less" scoped>
+.t-layout {
+  font: var(--td-font-body-medium);
+  color: var(--td-text-color-primary);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 #body {
   margin: 0;
   padding: 0;

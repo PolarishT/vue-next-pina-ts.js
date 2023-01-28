@@ -1,3 +1,4 @@
+import LoginTemp from "@/views/LoginTemp/LoginTemp.vue";
 import { createRouter, createWebHistory } from "vue-router";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,4 +45,9 @@ const router = createRouter({
         },
     ],
 });
+// router.beforeEach((to, from) => {
+//   //获取当前的路径
+//   if (to.name !== "/" && UseAuthenticated().isAuthenticated === false)
+//     return { name: LoginTemp };
+// });
 export default router;

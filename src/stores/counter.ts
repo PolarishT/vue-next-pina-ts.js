@@ -16,18 +16,8 @@ export const UseAuthenticated = defineStore("UserAuthentication", () => {
   const isAuthenticated = ref(false);
 
   function doCheck() {
-    isAuthenticated.value = false;
+    isAuthenticated.value = !isAuthenticated.value;
   }
 
   return { isAuthenticated };
 });
-
-// export const RolePermission = defineStore("Rolepermission", {
-//   state: () => ({ permission: "" }),
-//   getters: {
-//     array: (state) => (state.permission = "role"),
-//   },
-//   actions: {
-//     valus() {},
-//   },
-// });

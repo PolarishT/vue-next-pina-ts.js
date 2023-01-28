@@ -1,18 +1,18 @@
 <template>
   <t-header>
     <t-head-menu
-      expand-type="popup"
-      value="item1"
-      height="120px"
       v-model:theme="themeColor"
+      expand-type="popup"
+      height="120px"
       theme="light"
+      value="item1"
     >
       <template #logo>
         <img
-          width="136"
+          alt="logo"
           class="logo"
           src="https://www.tencent.com/img/index/menu_logo_hover.png"
-          alt="logo"
+          width="136"
         />
       </template>
 
@@ -21,7 +21,7 @@
           <template #title>
             <span>{{ item.name }}</span>
           </template>
-          <t-menu-item :value="item.menu.id" v-if="item.menu.id"
+          <t-menu-item v-if="item.menu.id" :value="item.menu.id"
             ><span>{{ item.menu.name }}</span></t-menu-item
           >
         </t-submenu>
@@ -31,34 +31,34 @@
         <t-space size="large">
           <t-switch
             v-model="renderChecked2"
-            size="large"
-            :label="renderContent"
             :custom-value="customValue"
+            :label="renderContent"
+            size="large"
           ></t-switch>
 
           <template v-for="item of MenuIcon" :key="item.id">
             <t-button
+              v-model:theme="changeIconTheme"
+              :href="item.url"
               :value="item.id"
               ghost
-              variant="text"
-              v-model:theme="changeIconTheme"
               shape="square"
-              :href="item.url"
+              variant="text"
             >
               <template #icon
                 ><span> <icon :name="item.value" size="25px"></icon></span
               ></template>
             </t-button>
           </template>
-          <t-popup theme="warning" content="点击休眠">
+          <t-popup content="点击休眠" theme="warning">
             <t-avatar
-              @dblclick="TurnTodormant"
-              @Click="TurnToLogin"
-              :image="USerIcon[0].icon"
-              size="large"
-              shape="round"
               :hide-on-load-failed="true"
+              :image="USerIcon[0].icon"
               :style="{ marginRight: '10px', marginLeft: '18px' }"
+              shape="round"
+              size="large"
+              @Click="TurnToLogin"
+              @click.right="TurnTodormant"
             />
           </t-popup>
         </t-space>
@@ -67,7 +67,7 @@
   </t-header>
 </template>
 
-<script setup lang="jsx">
+<script lang="jsx" setup>
 import { computed, ref } from "vue";
 import { CheckIcon, Icon, TipsIcon } from "tdesign-icons-vue-next";
 import {
@@ -77,6 +77,7 @@ import {
   USerIcon,
 } from "@/views/PullTemp/PullTemplate-ItemList";
 import router from "@/router/index";
+import { UseAuthenticated } from "@/stores/counter";
 
 const customValue = [1, 0];
 const renderChecked2 = ref(0);
@@ -95,25 +96,19 @@ let changeIconTheme = computed(() => {
 const renderContent = (h, data) => {
   return data.value ? <CheckIcon /> : <TipsIcon />;
 };
-const time = ref(null);
 const TurnTodormant = () => {
-  clearTimeout(time);
   console.log("entern dormart");
+  UseAuthenticated().isAuthenticated === true;
   router.push("/dormat");
 };
 const TurnToLogin = () => {
   console.log("enter Login");
-  clearTimeout(time);
-  time.value = setTimeout(() => {
-    router.push("/login");
-  }, 400);
+  UseAuthenticated().isAuthenticated === false;
+  router.push("/login");
 };
-
-const theme = ref("card");
-const myCalendar = ref("");
 </script>
 
-<style scoped lang="less">
+<style lang="less" scoped>
 #body {
   margin: 0;
   padding: 0;

@@ -82,7 +82,7 @@ export const MenuList = ref([
     menu: {
       id: "1 - 2",
       icon: "icon-jurassic_user",
-      name: "标签管理",
+      name: "旋风管理",
       url: "/user/list",
     },
   },
